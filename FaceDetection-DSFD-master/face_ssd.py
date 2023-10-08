@@ -45,6 +45,7 @@ class FEM(nn.Module):
         x3_1 = F.relu(self.cpm5(x2_2), inplace=True)
         return torch.cat([x1_1, x2_1, x3_1] , 1)
 
+
 class SSD(nn.Module):
     '''Single Shot Multibox Architecture
     The network is composed of a base VGG network followed by the
@@ -93,7 +94,7 @@ class SSD(nn.Module):
                 nn.BatchNorm2d(512),
                 nn.ReLU(inplace=True)]
             )
-        elif backbone in ['resnet50' , 'resnet101' , 'resnet152' , 'senet'] :
+        elif backbone in ['resnet50', 'resnet101', 'resnet152', 'senet']:
              print('loading pretrained resnet model')
              if backbone == 'resnet101':
                  resnet = torchvision.models.resnet101(pretrained=True)
@@ -546,6 +547,7 @@ def pa_multibox(output_channels, mbox_cfg, num_classes):
             conf_layers += [nn.Conv2d(input_channels, mbox_cfg[k] * conf_output, kernel_size=3, padding=1)]
     return (loc_layers, conf_layers)
 '''
+
 
 def build_ssd(phase, size=640, num_classes=2):
     if phase != 'test' and phase != 'train':

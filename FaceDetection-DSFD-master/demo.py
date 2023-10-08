@@ -26,6 +26,8 @@ from data import (WIDERFace_ROOT, WIDERFaceAnnotationTransform,
                   WIDERFaceDetection)
 from face_ssd import build_ssd
 from widerface_val import bbox_vote
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.switch_backend('agg')
 
@@ -73,8 +75,8 @@ def infer(net , img , transform , thresh , cuda , shrink):
     y = net(x)      # forward pass
     detections = y.data
     # scale each detection back up to the image
-    scale = torch.Tensor([ img.shape[1]/shrink, img.shape[0]/shrink,
-                         img.shape[1]/shrink, img.shape[0]/shrink] )
+    scale = torch.Tensor([img.shape[1]/shrink, img.shape[0]/shrink,
+                         img.shape[1]/shrink, img.shape[0]/shrink])
     det = []
     for i in range(detections.size(1)):
         j = 0
@@ -169,14 +171,15 @@ def test_oneimage():
     # load net
     cfg = widerface_640
     num_classes = len(WIDERFace_CLASSES) + 1 # +1 background
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     net = build_ssd('test', cfg['min_dim'], num_classes) # initialize SSD
-    net.load_state_dict(torch.load(args.trained_model))
-    net.cuda()
+    net.load_state_dict(torch.load(args.trained_model, map_location=torch.device(device)))
+    cuda = True if device == "cuda" else False
+    net.to(device)
     net.eval()
     print('Finished loading model!')
 
     # evaluation
-    cuda = args.cuda
     transform = TestBaseTransform((104, 117, 123))
     thresh = cfg['conf_thresh']
     #save_path = args.save_folder
@@ -190,11 +193,11 @@ def test_oneimage():
     max_im_shrink = ( (2000.0*2000.0) / (img.shape[0] * img.shape[1])) ** 0.5
     shrink = max_im_shrink if max_im_shrink < 1 else 1
 
-    det0 = infer(net , img , transform , thresh , cuda , shrink)
-    det1 = infer_flip(net , img , transform , thresh , cuda , shrink)
+    det0 = infer(net, img, transform, thresh, cuda, shrink)
+    det1 = infer_flip(net, img, transform, thresh, cuda, shrink)
     # shrink detecting and shrink only detect big face
     st = 0.5 if max_im_shrink >= 0.75 else 0.5 * max_im_shrink
-    det_s = infer(net , img , transform , thresh , cuda , st)
+    det_s = infer(net, img, transform, thresh, cuda, st)
     index = np.where(np.maximum(det_s[:, 2] - det_s[:, 0] + 1, det_s[:, 3] - det_s[:, 1] + 1) > 30)[0]
     det_s = det_s[index, :]
     # enlarge one times
@@ -217,7 +220,7 @@ def test_oneimage():
         det_b = det_b[index, :]
     det = np.row_stack((det0, det1, det_s, det_b))
     det = bbox_vote(det)
-    vis_detections(img , det , img_id, args.visual_threshold)
+    vis_detections(img, det, img_id, args.visual_threshold)
 
 
 if __name__ == '__main__':
