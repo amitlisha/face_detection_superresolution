@@ -10,7 +10,7 @@ def resize_image(img, size: int):
 def video_to_images_for_detection(video, size):
     new_video = []
     for frame in video:
-        frame = resize_image(frame, size)
+        frame = np.array(resize_image(frame, size))
         new_video.append(frame)
     return new_video
 
