@@ -15,6 +15,11 @@ def load_face_detector(target_size=720, device="cpu", min_face=20):
 
 
 def detection_pipeline(video):
+    """
+    preprocess the video and returns the processes video and bboxes
+    @param video: a list of frames
+    @return: process video and a list of lists of bboxes, one for each frame
+    """
     args = parse_args()
     model = load_face_detector(target_size=args.target_size, device=args.device, min_face=args.min_face)
     video = image_utils.video_to_images_for_detection(video, args.size)
