@@ -61,6 +61,7 @@ def write_to_txt(f, det , event , im_name):
         f.write('{:.1f} {:.1f} {:.1f} {:.1f} {:.3f}\n'.
                 format(xmin, ymin, (xmax - xmin + 1), (ymax - ymin + 1), score))
 
+
 def infer(net , img , transform , thresh , cuda , shrink):
     if shrink != 1:
         img = cv2.resize(img, None, None, fx=shrink, fy=shrink, interpolation=cv2.INTER_LINEAR)
@@ -163,6 +164,7 @@ def vis_detections(im,  dets, image_name , thresh=0.5):
     plt.tight_layout()
     plt.savefig(args.save_folder+image_name, dpi=fig.dpi)
 
+
 def test_oneimage():
     # load net
     cfg = widerface_640
@@ -176,7 +178,7 @@ def test_oneimage():
     # evaluation
     cuda = args.cuda
     transform = TestBaseTransform((104, 117, 123))
-    thresh=cfg['conf_thresh']
+    thresh = cfg['conf_thresh']
     #save_path = args.save_folder
     #num_images = len(testset)
  
