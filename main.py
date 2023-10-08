@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 import cv2
 import matplotlib.pyplot as plt
+import face_detection
 
 
 if __name__ == '__main__':
@@ -17,6 +18,9 @@ if __name__ == '__main__':
     #     end = (bb[2], bb[3])
     #     image_to_draw.rectangle([start, end], outline="red")
     # real_image.show()
+    img = Image.open("manyfaces.jpg")
+    video, bbs = face_detection.detection_pipeline([img])
+    x = 5
 
 
 
