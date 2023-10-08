@@ -44,7 +44,7 @@ if args.cuda and torch.cuda.is_available():
 else:
     torch.set_default_tensor_type('torch.FloatTensor')
 if not os.path.exists(args.save_folder):
-    os.mkdir(args.save_folder)
+    os.makedirs(args.save_folder, exist_ok=True)
 
 def detect_face(image, shrink):
     x = image
@@ -223,19 +223,23 @@ def write_to_txt(f, det , event, im_name):
                 format(np.floor(xmin), np.floor(ymin), np.ceil(xmax - xmin + 1), np.ceil(ymax - ymin + 1), score))
 
 # load net
-cfg = widerface_640
-num_classes = len(WIDERFace_CLASSES) + 1 # +1 background
-net = build_ssd('test', cfg['min_dim'], num_classes) # initialize SSD
-net.load_state_dict(torch.load(args.trained_model))
-net.cuda()
-net.eval()
-print('Finished loading model!')
+#########################################
+# cfg = widerface_640
+# num_classes = len(WIDERFace_CLASSES) + 1 # +1 background
+# net = build_ssd('test', cfg['min_dim'], num_classes) # initialize SSD
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# net.load_state_dict(torch.load(args.trained_model, map_location=torch.device(device)))
+# # net.cuda()
+# net.eval()
+# print('Finished loading model!')
+
 
 # load data
 
-testset = WIDERFaceDetection(args.widerface_root, 'val' , None, WIDERFaceAnnotationTransform())
-#testset = WIDERFaceDetection(args.widerface_root, 'test' , None, WIDERFaceAnnotationTransform())
+#testset = WIDERFaceDetection(args.widerface_root, 'val' , None, WIDERFaceAnnotationTransform())
+##testset = WIDERFaceDetection(args.widerface_root, 'test' , None, WIDERFaceAnnotationTransform())
 
+############################
 
 def vis_detections(imgid, im,  dets, thresh=0.5):
     '''Draw detected bounding boxes.'''
@@ -304,6 +308,7 @@ def test_widerface():
             os.makedirs(save_path + event)
         f = open(save_path + event + '/' + img_id.split('.')[0] + '.txt', 'w')
         write_to_txt(f, dets , event, img_id)
-        
+
+
 if __name__=='__main__':
     test_widerface()

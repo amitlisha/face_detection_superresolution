@@ -1,16 +1,23 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from face_detector import YoloDetector
+import numpy as np
+from PIL import Image, ImageDraw
+import cv2
+import matplotlib.pyplot as plt
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # model = YoloDetector(target_size=720, device="cpu", min_face=20)
+    # img = Image.open("manyfaces.jpg")
+    # real_image = img.resize((720, 720))
+    # img = np.array(real_image)
+    # bboxes, _ = detect_faces_in_image(model, img)
+    # image_to_draw = ImageDraw.Draw(real_image)
+    # for bb in bboxes[0]:
+    #     start = (bb[0], bb[1])
+    #     end = (bb[2], bb[3])
+    #     image_to_draw.rectangle([start, end], outline="red")
+    # real_image.show()
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
