@@ -4,7 +4,7 @@ import numpy as np
 
 
 def resize_image(img, size: int):
-    return cv2.resize(img, (size, size), interpolation=cv2.INTER_LINEAR)
+    return cv2.resize(np.array(img), (size, size), interpolation=cv2.INTER_LINEAR)
 
 
 def video_to_images_for_detection(video, size):

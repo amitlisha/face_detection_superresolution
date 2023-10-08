@@ -21,8 +21,8 @@ def detection_pipeline(video):
     @return: process video and a list of lists of bboxes, one for each frame
     """
     args = parse_args()
-    model = load_face_detector(target_size=args.target_size, device=args.device, min_face=args.min_face)
-    video = image_utils.video_to_images_for_detection(video, args.size)
+    model = load_face_detector(target_size=args.image_size, device=args.device, min_face=args.min_face)
+    video = image_utils.video_to_images_for_detection(video, args.image_size)
     bboxes = detect_faces_in_images(model, video)
     if args.visualize_bbs:
         draw_video = image_utils.draw_bbs_on_video(video, bboxes)
