@@ -45,10 +45,10 @@ def upscale_crops(img, crops, model):
 
     for crop_coords in crops:
         xl, yl, xr, yr = crop_coords
-        xl = max(0, xl - 25)
-        xr = min(img.shape[1], xr + 25)
-        yl = max(0, yl - 25)
-        yr = min(img.shape[0], yr + 25)
+        xl = max(0, xl - 75)
+        xr = min(img.shape[1], xr + 75)
+        yl = max(0, yl - 75)
+        yr = min(img.shape[0], yr + 75)
         img_crops.append(img[yl:yr, xl:xr])
 
     upscaled_crops = []
