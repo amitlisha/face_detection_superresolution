@@ -5,6 +5,11 @@
       <sourceFolder url="file://$MODULE_DIR$/vedadet-main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/yoloface-master" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/yoloface-master/utils" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/PAN" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yoloface_master" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yoloface_master/models" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yoloface_master/utils" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/FaceDetection-DSFD-master" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>

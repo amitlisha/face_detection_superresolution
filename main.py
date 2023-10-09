@@ -1,6 +1,7 @@
-import face_detection
-from utils import image_utils
-
+import super_resolution
+from argparser import parse_args
+from image_utils import read_video
+import cv2
 
 if __name__ == '__main__':
     # model = YoloDetector(target_size=720, device="cpu", min_face=20)
@@ -14,18 +15,21 @@ if __name__ == '__main__':
     #     end = (bb[2], bb[3])
     #     image_to_draw.rectangle([start, end], outline="red")
     # real_image.show()
+    args = parse_args()
+    if args.device.isnumeric():
+        args.device = int(args.device)
 
-    # img = Image.open("manyfaces.jpg")
-    # video, bbs = face_detection.detection_pipeline([img])
-    # x = 5
+    video_path = "VID-20231007-WA0155.mp4"
+    # elif args.video_path is not None:
+    #     video = read_video(video_path)
+    # elif args.image_path is not None:
+    #     video = cv2.cvtColor(cv2.imread(args.image_path), cv2.COLOR_BGR2RGB)
+    # else:
+    #     raise ValueError("Both video_path and image_path arguments are not set, one should be passed")
+    video = read_video(video_path)
 
-    # video = image_utils.read_images_from_dir("examples")
-    video = image_utils.read_video("VID-20231007-WA0155.mp4")[0:500]
-    super_draws = []
-    for im in video:
-        bboxes, _, draws = face_detection.detection_pipeline([im])
-        super_draws.append(draws[0])
-    image_utils.save_images_to_dir(super_draws, dir_path="video frames with bbs")
+    super_resolution.face_super_resolution(video, args)
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
