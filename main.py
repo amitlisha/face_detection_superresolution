@@ -27,7 +27,7 @@ if __name__ == '__main__':
     video = read_video(video_path)[200:300]
     _, bboxes, draw_video = face_detection.detection_pipeline(video)
     save_images_to_dir(draw_video, "video frames with bbs")
-    super_resolution.face_super_resolution(video, args)
+    super_resolution.video_super_resolution(video, args)
 
 
 
