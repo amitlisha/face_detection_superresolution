@@ -1,8 +1,3 @@
-from face_detector import YoloDetector
-import numpy as np
-from PIL import Image, ImageDraw
-import cv2
-import matplotlib.pyplot as plt
 import face_detection
 from utils import image_utils
 
@@ -25,7 +20,7 @@ if __name__ == '__main__':
     # x = 5
 
     # video = image_utils.read_images_from_dir("examples")
-    video = image_utils.read_video("VID-20231007-WA0155.mp4")[150:200]
+    video = image_utils.read_video("VID-20231007-WA0155.mp4")[0:500]
     super_draws = []
     for im in video:
         bboxes, _, draws = face_detection.detection_pipeline([im])
