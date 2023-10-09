@@ -35,10 +35,22 @@ def resize_image(img, size: int):
     return cv2.resize(np.array(img), (size, size), interpolation=cv2.INTER_LINEAR)
 
 
-def video_to_images_for_detection(video, size):
+def pad_image_square(img: Image):
+    width, height = img.size
+    if width > height:
+        result = Image.new(img.mode, (width, width), (0, 0, 0))
+        result.paste(img, (0, (width - height) // 2))
+        return result
+    else:
+        result = Image.new(img.mode, (height, height), (0, 0, 0))
+        result.paste(img, ((height - width) // 2, 0))
+        return result
+
+
+def video_to_images_for_detection(video):
     new_video = []
     for frame in video:
-        frame = np.array(resize_image(frame, size))
+        frame = np.array(pad_image_square(frame))
         new_video.append(frame)
     return new_video
 

@@ -1,6 +1,7 @@
+import face_detection
 import super_resolution
 from argparser import parse_args
-from image_utils import read_video
+from image_utils import read_video, save_images_to_dir
 import cv2
 
 if __name__ == '__main__':
@@ -26,9 +27,10 @@ if __name__ == '__main__':
     #     video = cv2.cvtColor(cv2.imread(args.image_path), cv2.COLOR_BGR2RGB)
     # else:
     #     raise ValueError("Both video_path and image_path arguments are not set, one should be passed")
-    video = read_video(video_path)
-
-    super_resolution.face_super_resolution(video, args)
+    video = read_video(video_path)[200:300]
+    _, bboxes, draw_video = face_detection.detection_pipeline(video)
+    save_images_to_dir(draw_video, "video frames with bbs")
+    # super_resolution.face_super_resolution(video, args)
 
 
 
