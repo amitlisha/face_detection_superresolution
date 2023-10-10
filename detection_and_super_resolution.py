@@ -2,10 +2,9 @@ import face_detection
 from super_resolution import load_upscaler, upscale_crops
 from PIL import Image
 import os
-from argparser import parse_args
 
 
-def video_face_detection_and_super_resolution(video):
+def video_face_detection_and_super_resolution(video, args):
     """
     This function executes the super resolution process for a given video. Crops of faces are extracted from each frame
     and are than upsampled with super resolution. The function saves images of the crops in a chosen save path.
@@ -13,7 +12,8 @@ def video_face_detection_and_super_resolution(video):
     @param args: parsed argparser arguments
     @return: a list of PIL images of super resolution faces
     """
-    args = parse_args()
+    if args.save_path is None:
+        args.save_path = f"results/{os.path.basename(args.video_path)}"
     if args.visualize_bbs:
         video, bbs, _ = face_detection.detection_pipeline(video)
     else:
