@@ -10,7 +10,6 @@ def video_face_detection_and_super_resolution(video):
     This function executes the super resolution process for a given video. Crops of faces are extracted from each frame
     and are than upsampled with super resolution. The function saves images of the crops in a chosen save path.
     @param video: a video as a list of PIL images
-    @param args: parsed argparser arguments
     @return: a list of PIL images of super resolution faces
     """
     args = parse_args()
