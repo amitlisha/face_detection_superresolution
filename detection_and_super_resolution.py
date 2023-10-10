@@ -13,7 +13,8 @@ def video_face_detection_and_super_resolution(video, args):
     @return: a list of PIL images of super resolution faces
     """
     if args.save_path is None:
-        args.save_path = f"results/{os.path.basename(args.video_path)}"
+        path = args.video_path if args.video_path else args.image_path
+        args.save_path = f"results/{os.path.basename(path)}"
     if args.visualize_bbs:
         video, bbs, _ = face_detection.detection_pipeline(video)
     else:
