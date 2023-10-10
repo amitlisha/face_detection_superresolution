@@ -1,7 +1,7 @@
-#Introduction
+# Introduction
 This code can detect all faces in a video or in a list of images, and enhunce the quality of the faces.
 
-#User guide
+# User guide
 The first step after downloading th code, is to download the pretrained super-resolution models from https://drive.google.com/drive/u/1/folders/1T-GfwYdCZv44wENOwEDBVXIjyPHgY-a0 and.
 Put the super-resolution models under PAN/experiments/pretrained_models.
 
