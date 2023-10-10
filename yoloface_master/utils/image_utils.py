@@ -25,6 +25,10 @@ def read_images_from_dir(dir_path):
     return images_ls
 
 
+def read_image(image_path):
+    return [Image.open(f"{image_path}")]
+
+
 def save_images_to_dir(image_ls, dir_path="bb_examples"):
     os.makedirs(dir_path, exist_ok=True)
     for i, image in enumerate(image_ls):

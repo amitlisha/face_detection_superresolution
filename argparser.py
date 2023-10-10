@@ -7,7 +7,8 @@ args.add_argument("--min-face", type=int, default=10, help="minimum possible siz
 args.add_argument("--visualize-bbs", default=True, action="store_true")
 args.add_argument("--scale", type=int, help="Super resolution model scale to use", default=2)
 args.add_argument("--save-path", type=str, help="path to where to save output", default=None)
-args.add_argument("--video_path", type=str, help="path to video", required=True)
+args.add_argument("--video_path", type=str, help="path to video", default=None)
+args.add_argument("--image_path", type=str, help="path to image", default=None)
 
 args.add_argument("--device", type=str, default="cpu")
 
