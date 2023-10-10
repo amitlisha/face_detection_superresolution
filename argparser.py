@@ -7,7 +7,8 @@ args.add_argument("--min-face", type=int, default=10, help="minimum possible siz
 args.add_argument("--visualize-bbs", default=True, action="store_true")
 args.add_argument("--scale", type=int, help="Super resolution model scale to use, "
                                             "possible values are 2, 3, 4", default=2)
-args.add_argument("--save-path", type=str, help="path to where to save output", default="./results")
+args.add_argument("--save-path", type=str, help="path to where to save output"
+                                                "if you dont wont to save the faces enter None", default="./results")
 
 args.add_argument("--device", type=str, default="cpu")
 
