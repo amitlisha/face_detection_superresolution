@@ -55,7 +55,7 @@ class YoloDetector:
                 m._non_persistent_buffers_set = set()  # pytorch 1.6.0 compatibility
         return detector
     
-    def _preprocess(self,imgs):
+    def _preprocess(self, imgs):
         """
             Preprocessing image before passing through the network. Resize and conversion to torch tensor.
         """

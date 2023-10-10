@@ -1,11 +1,16 @@
 from face_detector import YoloDetector
-import numpy as np
-from PIL import Image, ImageDraw
 from argparser import parse_args
 from utils import image_utils
 
 
 def detect_faces_in_images(model, img, bs):
+    """
+    detect faces in batches
+    @param model: the detection model
+    @param img: the list of images
+    @param bs: batch size for inference
+    @return: bboxes
+    """
     if bs != -1:
         bboxes = []
         list_chunked = [img[i:i + bs] for i in range(0, len(img), bs)]
@@ -19,6 +24,13 @@ def detect_faces_in_images(model, img, bs):
 
 
 def load_face_detector(target_size=720, device="cpu", min_face=20):
+    """
+    create face detector model
+    @param target_size: images size for detection
+    @param device: device for detector
+    @param min_face: minimum possible size of faces in images in pixels
+    @return: detector model
+    """
     return YoloDetector(target_size=target_size, device=device, min_face=min_face)
 
 

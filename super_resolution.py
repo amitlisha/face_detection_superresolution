@@ -4,12 +4,10 @@ Script for performing super resolution on a given image or crops from an image.
 import torch
 import numpy as np
 
-import face_detection
 from PAN.codes.models.archs import PAN_arch
 from PAN.codes.utils.util import single_forward, tensor2img
-from PIL import Image
-import os
 import cv2
+
 
 def load_upscaler(device="cpu", scale=2):
     """
@@ -90,24 +88,3 @@ def upscale_crops(img, crops, model, device="cpu"):
     return [item for item in upscaled_crops]
 
 
-def video_super_resolution(video, args):
-    """
-    This function executes the super resolution process for a given video. Crops of faces are extracted from each frame
-    and are than upsampled with super resolution. The function saves images of the crops in a chosen save path.
-    @param video: a video as a numpy array
-    @param args: parsed argparser arguments
-    """
-    if args.visualize_bbs:
-        video, bbs, _ = face_detection.detection_pipeline(video)
-    else:
-        video, bbs = face_detection.detection_pipeline(video)
-    model = load_upscaler(args.device, args.scale)
-    model.eval()
-
-    os.makedirs(f"{args.save_path}", exist_ok=True)
-    for i, (frame, bb) in enumerate(zip(video, bbs)):
-        if len(bb) > 0:
-            upscaled_crops = upscale_crops(frame, bb, model, args.device)
-            for j, item in enumerate(upscaled_crops):
-                pil_img = Image.fromarray(item)
-                pil_img.save(f"{args.save_path}/frame_{i}_face_{j}_scale={args.scale}.jpg")
