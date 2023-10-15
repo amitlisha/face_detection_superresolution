@@ -4,4 +4,7 @@
     <option name="sdkName" value="Python 3.8 (face_detection_superresolution)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (face_detection_superresolution)" project-jdk-type="Python SDK" />
+  <component name="PyCharmProfessionalAdvertiser">
+    <option name="shown" value="true" />
+  </component>
 </project>

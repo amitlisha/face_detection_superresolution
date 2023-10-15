@@ -1,4 +1,6 @@
 import os
+import tempfile
+from typing import BinaryIO
 
 import cv2
 from PIL import ImageDraw, Image
@@ -32,7 +34,7 @@ def read_image(image_path):
 def save_images_to_dir(image_ls, dir_path="bb_examples"):
     os.makedirs(dir_path, exist_ok=True)
     for i, image in enumerate(image_ls):
-        image.save(f"{dir_path}/{i+1}.png")
+        image.save(f"{dir_path}/{i + 1}.png")
 
 
 def resize_image(img, size: int):
@@ -76,3 +78,13 @@ def draw_bbs_on_image(img, bbs: list):
         end = (bb[2], bb[3])
         image_to_draw.rectangle([start, end], outline="red")
     return img
+
+
+def get_temporary_file_name(file: BinaryIO):
+    named_temp_file = tempfile.NamedTemporaryFile(delete=False)
+    data = file.read()
+    file.seek(0)
+    named_temp_file.write(data)
+    file.close()
+    named_temp_file.close()
+    return named_temp_file.name

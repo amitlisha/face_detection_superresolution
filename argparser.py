@@ -9,7 +9,8 @@ args.add_argument("--scale", type=int, help="Super resolution model scale to use
 args.add_argument("--save-path", type=str, help="path to where to save output", default=None)
 args.add_argument("--video_path", type=str, help="path to video", default=None)
 args.add_argument("--image_path", type=str, help="path to image", default=None)
-
+args.add_argument("--app", type=str, help="flask app name", default="main")
+args.add_argument("--reload", type=str, help="flask port", default="main:app")
 args.add_argument("--device", type=str, default="cpu")
 
 
