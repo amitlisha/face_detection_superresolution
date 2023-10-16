@@ -1,6 +1,10 @@
-from face_detector import YoloDetector
+from yoloface_master.face_detector import YoloDetector
 from argparser import parse_args
-from utils import image_utils
+from yoloface_master.utils import image_utils
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 
 def detect_faces_in_images(model, img, bs):
@@ -40,13 +44,13 @@ def detection_pipeline(video):
     @param video: a list of frames
     @return: process video and a list of lists of bboxes, one for each frame
     """
-    args = parse_args()
+    #args = parse_args()
     frame = video[0]
     image_size = max(frame.size)
-    model = load_face_detector(target_size=image_size, device=args.device, min_face=args.min_face)
+    model = load_face_detector(target_size=image_size, device=config['DEFAULT']['device'], min_face=int(config['DEFAULT']['min-face']))
     video = image_utils.video_to_images_for_detection(video)
-    bboxes = detect_faces_in_images(model, video, args.detection_batch_size)
-    if args.visualize_bbs:
+    bboxes = detect_faces_in_images(model, video, int(config['DEFAULT']['detection_batch_size']))
+    if config['DEFAULT']['visualize-bbs']:
         draw_video = image_utils.draw_bbs_on_video(video, bboxes)
         return video, bboxes, draw_video
     return video, bboxes
